@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Karate Timeline</title>
+    <style>
+      body, html { font-family: arial, sans-serif; font-size: 11pt; }
+      #visualization { box-sizing: border-box; width: 100%; height: 300px; }
+      .vis-item.failed { background-color: #F2928C; }
+      .page-heading { padding: 0.5em; margin-bottom: 0.5em; background-color: lightcyan; border: 1px solid gray; }
+    </style>
+    <script src="res/vis.min.js"></script>
+    <link href="res/vis.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="page-heading">
+      <a href="karate-summary.html">Summary</a>
+    </div>     
+    <div id="visualization"></div>
+    <script>
+var groups = [{"content":"main","id":1}];
+var items = [{"id":1,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.1:35]","start":1704678977911,"end":1704678978878,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.1:35] 20:56:17.911-20:56:18.878 Get a Pokemon by ID"},{"id":2,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.2:36]","start":1704678978883,"end":1704678979097,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.2:36] 20:56:18.883-20:56:19.097 Get a Pokemon by ID"},{"id":3,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.3:37]","start":1704678979103,"end":1704678979337,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.3:37] 20:56:19.103-20:56:19.337 Get a Pokemon by ID"},{"id":4,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.4:38]","start":1704678979341,"end":1704678979569,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.4:38] 20:56:19.341-20:56:19.569 Get a Pokemon by ID"}];
+</script>
+    <script>
+      var container = document.getElementById('visualization');
+      var timeline = new vis.Timeline(container);
+      timeline.setOptions({groupOrder: 'content'});
+      timeline.setGroups(new vis.DataSet(groups));
+      timeline.setItems(new vis.DataSet(items));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Karate Timeline</title>
+    <style>
+      body, html { font-family: arial, sans-serif; font-size: 11pt; }
+      #visualization { box-sizing: border-box; width: 100%; height: 300px; }
+      .vis-item.failed { background-color: #F2928C; }
+      .page-heading { padding: 0.5em; margin-bottom: 0.5em; background-color: lightcyan; border: 1px solid gray; }
+    </style>
+    <script src="res/vis.min.js"></script>
+    <link href="res/vis.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="page-heading">
+      <a href="karate-summary.html">Summary</a>
+    </div>     
+    <div id="visualization"></div>
+    <script>
+var groups = [{"content":"main","id":1}];
+var items = [{"id":1,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.1:35]","start":1704678953993,"end":1704678954936,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.1:35] 20:55:53.993-20:55:54.936 Get a Pokemon by ID","className":"failed"},{"id":2,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.2:36]","start":1704678954941,"end":1704678955164,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.2:36] 20:55:54.941-20:55:55.164 Get a Pokemon by ID","className":"failed"},{"id":3,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.3:37]","start":1704678955168,"end":1704678955359,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.3:37] 20:55:55.168-20:55:55.359 Get a Pokemon by ID","className":"failed"},{"id":4,"group":1,"content":"src\/test\/java\/pokemon\/get\/pokemonTests[2.4:38]","start":1704678955363,"end":1704678955579,"title":"src\/test\/java\/pokemon\/get\/pokemonTests[2.4:38] 20:55:55.363-20:55:55.579 Get a Pokemon by ID","className":"failed"}];
+</script>
+    <script>
+      var container = document.getElementById('visualization');
+      var timeline = new vis.Timeline(container);
+      timeline.setOptions({groupOrder: 'content'});
+      timeline.setGroups(new vis.DataSet(groups));
+      timeline.setItems(new vis.DataSet(items));
+    </script>
+  </body>
+</html>
