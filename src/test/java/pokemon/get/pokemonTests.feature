@@ -26,6 +26,7 @@ Feature: Get a Pokemon
     And match response.types[0].type.name == '<type>'
     And match response.name == '<name>'
 
+
     #logs
     * karate.log(response)
 
