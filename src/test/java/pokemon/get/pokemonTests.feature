@@ -26,9 +26,8 @@ Feature: Get a Pokemon
     And match response.types[0].type.name == '<type>'
     And match response.name == '<name>'
 
-
     #logs
-    ##* karate.log(response)
+    * karate.log(response)
 
     Examples:
       | pokemonName | ability_1 | ability_2     | type     | name      |
@@ -129,7 +128,7 @@ Feature: Get a Pokemon
     * karate.log(response)
 
   @PokemonGet006
-  Scenario: User a random Pokemon Type from another Test
+  Scenario: Use a random Pokemon Type from another Test
   # Pre-condition
     * call read('classpath:pokemon/get/pokemonTests.feature@PokemonGet005')
 
