@@ -2,20 +2,20 @@ Feature: Get a Pokemon
 
   Background:
 
-    Given url baseUrl
+    Given url baseUrlPokemon
 
-    #Functions
-    * def randomNumber =
-    """
-    function(max)
-    { return Math.floor(Math.random() * max) }
-    """
+    # Data
+    * def pokemonTypesData = read('classpath:pokemon/get/pokemonExamples/types/types.json')
 
-    #Paths
+    # Functions
+    * def randomIndex = numbers.randomNumber(pokemonTypesData.results.length);
+    * def randomType = pokemonTypesData.results[randomIndex]
+
+    # Paths
     * def pokemonPath = 'pokemon/'
     * def typePath = 'type/'
 
-  @PokemonGet001
+  @smoke @functional @sanity
   #test
   Scenario Outline: Get a Pokemon by Name
     Given path pokemonPath + '<pokemonName>'
@@ -28,15 +28,26 @@ Feature: Get a Pokemon
 
     #logs
     * karate.log(response)
+    * karate.log(response.abilities[0].ability.name)
+    * karate.log(response.abilities[1].ability.name)
+    * karate.log(response.types[0].type.name)
 
     Examples:
-      | pokemonName | ability_1 | ability_2     | type     | name      |
-      | pikachu     | static    | lightning-rod | electric | pikachu   |
-      | pidgeotto   | keen-eye  | tangled-feet  | normal   | pidgeotto |
-      | ditto       | limber    | imposter      | normal   | ditto     |
-      | charizard   | blaze     | solar-power   | fire     | charizard |
+      | pokemonName | ability_1   | ability_2     | type     | name       |
+      | pikachu     | static      | lightning-rod | electric | pikachu    |
+      | pidgeotto   | keen-eye    | tangled-feet  | normal   | pidgeotto  |
+      | ditto       | limber      | imposter      | normal   | ditto      |
+      | charizard   | blaze       | solar-power   | fire     | charizard  |
+      | charmeleon  | blaze       | solar-power   | fire     | charmeleon |
+      | ekans       | intimidate  | shed-skin     | poison   | ekans      |
+      | raichu      | static      | lightning-rod | electric | raichu     |
+      | wartortle   | torrent     | rain-dish     | water    | wartortle  |
+      | beedrill    | swarm       | sniper        | bug      | beedrill   |
+      | pidgeot     | keen-eye    | tangled-feet  | normal   | pidgeot    |
+      | caterpie    | shield-dust | run-away      | bug      | caterpie   |
+      | rattata     | run-away    | guts          | normal   | rattata    |
 
-  @PokemonGet002
+  @smoke @functional @sanity
   Scenario Outline: Get a Pokemon by ID
     #test
     Given path pokemonPath + '<id>'
@@ -59,21 +70,18 @@ Feature: Get a Pokemon
       | 3   | venusaur   |
       | 4   | charmander |
 
-  @PokemonGet003
+  @functional @sanity
   Scenario: Get all Pokemon Types
-    #Pre-condition
-    * def testData = read('classpath:pokemon/get/pokemonExamples/types/types.json')
-
     #Test
     Given path typePath
     When method GET
     Then status 200
-    And match response == testData
+    And match response == pokemonTypesData
 
     #logs
     * karate.log(response)
 
-  @PokemonGet004
+  @functional @sanity
   Scenario Outline: Get all Pokemon from <type> type.
     #Pre-condition
     * def <testType> = read('classpath:pokemon/get/pokemonExamples/types/types_' + '<type>' + '.json')
@@ -97,43 +105,27 @@ Feature: Get a Pokemon
       | rock     | types_rock     |
       | bug      | types_bug      |
 
-  @PokemonGet005
+  @sanity
   Scenario: Get a random Pokemon Type
-  # Pre-condition
-    * def testData = read('classpath:pokemon/get/pokemonExamples/types/types.json')
-
-  # Functions
-    * def randomNumber =
-    """
-    function(max) {
-      return Math.floor(Math.random() * max);
-    }
-    """
-
-    * def randomIndex = eval(randomNumber + '; randomNumber(testData.results.length)')
-    * def randomData = testData.results[randomIndex]
-
   # Test
-    Given path typePath + randomData.name
+    Given path typePath + randomType.name
     When method GET
     Then status 200
-    And match response.name == randomData.name
-    * def pokemonType = randomData.name
-
+    And match response.name == randomType.name
+    * def pokemonType = randomType.name
 
   # Logs
     * karate.log('randomIndex: ' + randomIndex)
-    * karate.log('randomData.name: ' + randomData.name)
+    * karate.log('randomType.name: ' + randomType.name)
     * karate.log('response.name: ' + response.name)
-    * karate.log(response)
 
-  @PokemonGet006
+  @sanity
   Scenario: Use a random Pokemon Type from another Test
   # Pre-condition
-    * call read('classpath:pokemon/get/pokemonTests.feature@PokemonGet005')
+    * call read('classpath:pokemon/get/pokemonTests.feature@Pokemon_GetARandomPokemon_Type')
 
   # Retrieve the variable from the feature context
-    * def testData = read('classpath:pokemon/get/pokemonExamples/types/types.json')
+    * def pokemonTypesData = read('classpath:pokemon/get/pokemonExamples/types/types.json')
     * def pokemonType = karate.get('pokemonType')
 
   # Test
@@ -147,7 +139,7 @@ Feature: Get a Pokemon
     * karate.log('response.name: ' + response.name)
     * karate.log(response)
 
-  @PokemonGet007
+  @sanity
   # test
   Scenario Outline: Get an specific ability (cut), to see if <pokemon> can learn it
     Given path pokemonPath + '<pokemonName>'
@@ -165,3 +157,11 @@ Feature: Get a Pokemon
       | Kecleon   | kecleon     |
       | Sableye   | sableye     |
       | Charizard | charizard   |
+
+  @Pokemon_GetARandomPokemon_Type
+  Scenario: Pokemon - Call - Get a random Pokemon Type
+  # Test
+    Given path typePath + randomType.name
+    When method GET
+    Then status 200
+    * def pokemonType = randomType.name
