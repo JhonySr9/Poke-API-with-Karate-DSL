@@ -2,7 +2,7 @@ package pokemon.get;
 
 import com.intuit.karate.junit5.Karate;
 
-public class PokeRunner {
+public class PokeTest {
 
     @Karate.Test
     Karate GetPokemon_Smoke() {

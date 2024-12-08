@@ -15,7 +15,7 @@ Feature: Get a Pokemon
     * def pokemonPath = 'pokemon/'
     * def typePath = 'type/'
 
-  @smoke @functional @sanity
+  @smoke
   #test
   Scenario Outline: Get a Pokemon by Name
     Given path pokemonPath + '<pokemonName>'
@@ -47,7 +47,7 @@ Feature: Get a Pokemon
       | caterpie    | shield-dust | run-away      | bug      | caterpie   |
       | rattata     | run-away    | guts          | normal   | rattata    |
 
-  @smoke @functional @sanity
+  @smoke
   Scenario Outline: Get a Pokemon by ID
     #test
     Given path pokemonPath + '<id>'
@@ -70,7 +70,7 @@ Feature: Get a Pokemon
       | 3   | venusaur   |
       | 4   | charmander |
 
-  @functional @sanity
+  @functional
   Scenario: Get all Pokemon Types
     #Test
     Given path typePath
@@ -81,7 +81,7 @@ Feature: Get a Pokemon
     #logs
     * karate.log(response)
 
-  @functional @sanity
+  @functional
   Scenario Outline: Get all Pokemon from <type> type.
     #Pre-condition
     * def <testType> = read('classpath:pokemon/get/pokemonExamples/types/types_' + '<type>' + '.json')
