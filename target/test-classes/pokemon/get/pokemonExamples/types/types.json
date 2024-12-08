@@ -1,6 +1,6 @@
 {
-  "count": 20,
-  "next": null,
+  "count": 21,
+  "next": "https://pokeapi.co/api/v2/type?offset=20&limit=1",
   "previous": null,
   "results": [
     {
@@ -76,12 +76,12 @@
       "url": "https://pokeapi.co/api/v2/type/18/"
     },
     {
-      "name": "unknown",
-      "url": "https://pokeapi.co/api/v2/type/10001/"
+      "name": "stellar",
+      "url": "https://pokeapi.co/api/v2/type/19/"
     },
     {
-      "name": "shadow",
-      "url": "https://pokeapi.co/api/v2/type/10002/"
+      "name": "unknown",
+      "url": "https://pokeapi.co/api/v2/type/10001/"
     }
   ]
 }

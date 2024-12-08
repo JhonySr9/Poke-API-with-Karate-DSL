@@ -141,7 +141,7 @@ Feature: Get a Pokemon
 
   @sanity
   # test
-  Scenario Outline: Get an specific ability (cut), to see if <pokemon> can learn it
+  Scenario Outline: Get an specific ability (cut), to see if <pokemonName> can learn it
     Given path pokemonPath + '<pokemonName>'
     When method GET
     Then status 200
@@ -151,12 +151,23 @@ Feature: Get a Pokemon
     * karate.log(response)
 
     Examples:
-      | pokemon   | pokemonName |
-      | Rattata   | rattata     |
-      | Latias    | latias      |
-      | Kecleon   | kecleon     |
-      | Sableye   | sableye     |
-      | Charizard | charizard   |
+      | pokemonName |
+      | rattata     |
+      | latias      |
+      | kecleon     |
+      | sableye     |
+      | charizard   |
+
+
+  @sanity
+  Scenario: Get an specific Pokemon using its name from an array
+    Given path pokemonPath
+    When method GET
+    Then status 200
+    * def result = $response.results[?(@.name == 'bulbasaur')].url
+    * def value = result[0]
+    * match value == "https://pokeapi.co/api/v2/pokemon/1/"
+    * print result
 
   @Pokemon_GetARandomPokemon_Type
   Scenario: Pokemon - Call - Get a random Pokemon Type
