@@ -20,6 +20,7 @@
             <artifactId>karate-junit5</artifactId>
             <version>1.3.1</version>
             <scope>test</scope>
+
         </dependency>
 
         <dependency>
@@ -82,7 +83,9 @@
                         <include>**/*Test.java</include>
                         <include>**/*Tests.java</include>
                     </includes>
-
+                    <parallel>methods</parallel>
+                    <threadCount>4</threadCount>
+                    <useUnlimitedThreads>false</useUnlimitedThreads>
                 </configuration>
             </plugin>
         </plugins>
